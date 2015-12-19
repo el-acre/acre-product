@@ -8,12 +8,6 @@ Example:
 
     <acre-product></acre-product>
 
-Example:
-
-    <acre-product>
-      <h2>Hello acre-product</h2>
-    </acre-product>
-
 @demo demo/index.html
 @hero hero.svg
 -->
@@ -46,7 +40,7 @@ Example:
       }
       
       .button {
-        color: var(--acre-foregroud, #fff);
+        color: #fff;
         background-color: var(--acre-accent, #2e6da4);
         border-color: var(--acre-accent, #2e6da4);
         padding: 6px 12px;
@@ -62,52 +56,34 @@ Example:
     </style>
 
     <div class="vertical layout">
-      <!--<iron-image alt="{{product.name}}" style="width:100%; height:400px;" sizing="cover" src$="[[product.image]]"></iron-image>-->
       <iron-image class="flex" style="min-height:300px; background-color: white;" sizing="contain" preload src="[[product.image]]"></iron-image>
       <div>
         <p class="name">[[product.name]]</p>
         <p class="description">[[product.shortDescrition]]</p>
         <p class="price">[[product.price]]</p>
         <div class="horizontal center-justified layout">
-          <button class="button" on-click="_product_clicked">Adicionar ao pedido</button>
+          <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
         </div>
       </div>
     </div>
-    <!--<h1>&lt;acre-product&gt;</h1>
-    <content></content>
-    <p class="author">
-      <img src$="{{author.image}}"> Cheers,
-      <br/>
-      <p class="name">{{author.name}}</span>
-    </p>-->
   </template>
 
   <script>
     Polymer({
       is: 'acre-product',
-
+    
       properties: {
-       
-        /**
-         * Describes the author of the element, but is really just an excuse to
-         * show off JSDoc annotations.
-         *
-         * @type {{name: string, image: string}}
-         */
+    
+        buttonLabel: {
+          type: String,
+          value: "Adicionar ao pedido"
+        },
+          
         product: {
           type: Object,
-          // Use `value` to provide a default value for a property, by setting it
-          // on your element's prototype.
-          //
-          // If you provide a function, as we do here, Polymer will call that
-          // _per element instance_.
-          //
-          // We do that to ensure that each element gets its own copy of the
-          // value, rather than having it shared across all instances (via the
-          // prototype).
-          value: function() {
-            return{
-              name:  '',
+          value: function () {
+            return {
+              name: '',
               image: '',
               price: '',
               shortDescription: ''
@@ -115,10 +91,10 @@ Example:
           }
         },
       },
-
+    
       // Element Lifecycle
-
-      ready: function() {
+    
+      ready: function () {
         // `ready` is called after all elements have been configured, but
         // propagates bottom-up. This element's children are ready, but parents
         // are not.
@@ -126,8 +102,8 @@ Example:
         // This is the point where you should make modifications to the DOM (when
         // necessary), or kick off any processes the element wants to perform.
       },
-
-      attached: function() {
+    
+      attached: function () {
         // `attached` fires once the element and its parents have been inserted
         // into a document.
         //
@@ -135,42 +111,25 @@ Example:
         // visual state or active behavior (measuring sizes, beginning animations,
         // loading resources, etc).
       },
-
-      detached: function() {
+    
+      detached: function () {
         // The analog to `attached`, `detached` fires when the element has been
         // removed from a document.
         //
         // Use this to clean up anything you did in `attached`.
       },
-
+    
       // Element Behavior
-
+    
+    
       /**
-       * Sometimes it's just nice to say hi.
-       *
-       * @param {string} greeting A positive greeting.
-       * @return {string} The full greeting.
-       */
-      // sayHello: function(greeting) {
-      //   var response = greeting || 'Hello World!';
-      //   return 'acre-product says, ' + response;
-      // },
-
-      /**
-       * The `acre-product-lasers` event is fired whenever `fireLasers` is called.
-       *
-       * @event acre-product-lasers
-       * @detail {{sound: String}}
-       */
-
-      /**
-       * Attempt to destroy this element's enemies with a beam of light!
-       *
-       * Or, at least, dispatch an event in the vain hope that someone else will
-       * do the zapping.
-       */
-      _product_clicked: function(){
-        this.fire('add-click', {product: this.product});
+      * The `add-click` event is fired whenever the product button is clicked
+      *
+      * @event add-click
+      * @detail {{product: Product}}
+      */
+      _product_clicked: function () {
+        this.fire('add-click', { product: this.product });
       }
     });
   </script>
