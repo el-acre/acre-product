@@ -155,6 +155,7 @@ Custom property | Description | Default
       },
       
       _formatPrice:function(price){
+        if(!price) return price;
           return "R$" + price.toFixed(2);
       }
     });
