@@ -32,6 +32,10 @@ Custom property | Description | Default
         font-family: 'Open Sans', sans-serif;
       }
       
+      .container:hover {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+      
       .name {
         text-align: center;
         font-weight: bold;
@@ -48,30 +52,34 @@ Custom property | Description | Default
         font-weight: bold;
       }
       
-      .button {
+      button {
         color: #fff;
-        background-color: var(--acre-button-color, --accent-color);
-        border-color: var(--acre-button-color, --color-accent);
         padding: 6px 12px;
-        margin: 0 10px;
+        margin: 10x;
         font-size: 14px;
         font-weight: 400;
         line-height: 1.42857143;
         cursor: pointer;
         border: 1px solid transparent;
         text-align: center;
-        border-radius: 4px;
+        background-color: var(--acre-button-color, --accent-color);
+        border-color: var(--acre-button-color, --color-accent);
       }
+      
+      button:hover{
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+      
     </style>
 
-    <div class="vertical layout">
+    <div class="container vertical layout">
       <iron-image class="flex" style="min-height:300px; background-color: white;" sizing="contain" preload src="[[product.image]]"></iron-image>
       <div>
         <p class="name">[[product.name]]</p>
         <p class="description">[[product.shortDescrition]]</p>
         <p class="price">[[_formatedPrice]]</p>
-        <div class="horizontal center-justified layout">
-          <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
+        <div class="horizontal center-justified layout" style="padding:10px">
+          <button on-click="_product_clicked">[[buttonLabel]]</button>
         </div>
       </div>
     </div>
