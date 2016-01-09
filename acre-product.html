@@ -8,8 +8,17 @@ Example:
 
     <acre-product></acre-product>
 
+### Styling
+
+The following custom properties and mixins are available for styling: 
+  
+Custom property | Description | Default 
+----------------|-------------|---------- 
+`--acre-button-color` | The button color | `--accent-color` 
+
 @demo demo/index.html
 @hero hero.svg
+
 -->
 
 <dom-module id="acre-product">
@@ -41,8 +50,8 @@ Example:
       
       .button {
         color: #fff;
-        background-color: var(--acre-accent, #2e6da4);
-        border-color: var(--acre-accent, #2e6da4);
+        background-color: var(--acre-button-color, --accent-color);
+        border-color: var(--acre-button-color, --color-accent);
         padding: 6px 12px;
         margin: 0 10px;
         font-size: 14px;
@@ -60,7 +69,7 @@ Example:
       <div>
         <p class="name">[[product.name]]</p>
         <p class="description">[[product.shortDescrition]]</p>
-        <p class="price">[[product.price]]</p>
+        <p class="price">[[_formatedPrice]]</p>
         <div class="horizontal center-justified layout">
           <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
         </div>
@@ -90,6 +99,11 @@ Example:
             };
           }
         },
+        
+        _formatedPrice:{
+            type: String,
+            computed: '_formatPrice(product.price)'
+        }        
       },
     
       // Element Lifecycle
@@ -123,13 +137,17 @@ Example:
     
     
       /**
-      * The `add-click` event is fired whenever the product button is clicked
+      * The `add-button-click` event is fired whenever the product button is clicked
       *
-      * @event add-click
+      * @event add-button-click
       * @detail {{product: Product}}
       */
       _product_clicked: function () {
-        this.fire('add-click', { product: this.product });
+        this.fire('add-button-click', { product: this.product });
+      },
+      
+      _formatPrice:function(price){
+          return "R$" + price.toFixed(2);
       }
     });
   </script>

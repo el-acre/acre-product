@@ -20,18 +20,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <body unresolved>
 
+  <style is="custom-style">
+    acre-product {
+      --accent-color: red;
+    }
+    
+    .red-b {
+      --acre-button-color: green;
+    }
+  </style>
+
   <p>An example of <code>&lt;acre-product&gt;</code>:</p>
 
-  <acre-product product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+  <acre-product class="red-b" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
                 "image": "http://soschocolate.com.br/Content/images/products/amma45.jpg", 
                 "shortDescrition": "Cacau orgânico, açúcar orgânico, manteiga de cacau orgânico e leite. NÃO CONTÉM GLÚTEN",
                 "price": 25.00}'>
   </acre-product>
 
+  <acre-product style="--color-accent: red" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                "image": "http://soschocolate.com.br/Content/images/products/amma45.jpg", 
+                "shortDescrition": "Cacau orgânico, açúcar orgânico, manteiga de cacau orgânico e leite. NÃO CONTÉM GLÚTEN",
+                "price": 24.99}'>
+  </acre-product>
+
   <script>
-    var seedElement = document.querySelector('acre-product');
-    
-    seedElement.addEventListener("add-click", function(e) {
+    document.querySelector('acre-product')[0].addEventListener("add-button-click", function (e) {
+      console.log(e.detail.product);
+    });
+
+    document.querySelector('acre-product')[1].addEventListener("add-button-click", function (e) {
       console.log(e.detail.product);
     });
   </script>
