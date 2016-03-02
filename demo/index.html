@@ -16,32 +16,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>acre-product Demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
   <link rel="import" href="../acre-product.html">
+
 </head>
 
 <body unresolved>
 
   <style is="custom-style">
-    acre-product {
-      --accent-color: red;
+    .p1 {
+      --acre-button-color: #FF4081;
+      float: left;
     }
     
+    .p2 {
+      --acre-button-color: #5a981c;
+      float: left;
+    }
+    
+    .p3 {
+      --acre-button-color: #337ab7;
+      float: left;
+    }
   </style>
 
   <p>An example of <code>&lt;acre-product&gt;</code>:</p>
 
-  <acre-product product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
-                          "image": "http://soschocolate.com.br/Content/images/products/amma45.jpg", 
+  <acre-product class="p1" style="width:300px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                          "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
                           "shortDescrition": "Cacau orgânico, açúcar orgânico, manteiga de cacau orgânico e leite. NÃO CONTÉM GLÚTEN",
-                          "price": 25.00}'>
+                          "rating": 3,
+                          "originalPrice": 30.00,
+                          "price": 24.90}'>
+
   </acre-product>
 
-  
-  <script>
-    document.querySelector('acre-product').addEventListener("add-button-click", function (e) {
+  <acre-product class="p2" style="width:200px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                          "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
+                          "shortDescrition": "Cacau orgânico, açúcar orgânico, manteiga de cacau orgânico e leite. NÃO CONTÉM GLÚTEN",
+                          "rating": 2,
+                          "price": 24.90}'>
+
+    </acre-product>
+    
+    <acre-product class="p3" style="width:250px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                          "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
+                          "shortDescrition": "Cacau orgânico, açúcar orgânico, manteiga de cacau orgânico e leite. NÃO CONTÉM GLÚTEN",
+
+                          "price": 24.90}'/>
+
+
+    <script>
+      document.querySelector('acre-product').addEventListener("add-button-click", function (e) {
       console.log(e.detail.product);
     });
-
-  </script>
+    </script>
 
 </body>
 

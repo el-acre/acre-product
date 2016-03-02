@@ -1,5 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-flex-layout/classes/iron-flex-layout.html">
 <!--
 An element providing a solution to no problem in particular.
@@ -27,59 +29,86 @@ Custom property | Description | Default
       :host {
         display: block;
         box-sizing: border-box;
-        background-color: white;
+        font-family: 'Roboto', 'Noto', sans-serif;
         padding: 10px;
-        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
       }
       
-      .container:hover {
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      .container {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
       }
       
       .name {
-        text-align: center;
         font-weight: bold;
       }
       
-      .description {
-        text-align: center;
-        text-transform: uppercase;
-        font-size: 12px;
+      iron-icon.star {
+        --iron-icon-width: 16px;
+        --iron-icon-height: 16px;
+        color: #ffc107;
+      }
+      
+      iron-icon.star-gray {
+        --iron-icon-width: 16px;
+        --iron-icon-height: 16px;
+        color:gray;
       }
       
       .price {
-        text-align: center;
         font-weight: bold;
+        font-size: 25px;
+        margin: 0;
+        color: #CC0505;
+        margin-bottom: 10px;
+      }
+      
+      .original-price {
+        text-decoration: line-through;
+        color: gray;
+        margin: 0;
       }
       
       button {
         color: #fff;
+        background-color: var(--acre-button-color, --accent-color);
+        border-color: var(--acre-button-color, --accent-color);
         padding: 6px 12px;
-        margin: 10x;
+        margin: 0;
+        width: 100%;
         font-size: 14px;
         font-weight: 400;
         line-height: 1.42857143;
         cursor: pointer;
         border: 1px solid transparent;
         text-align: center;
-        background-color: var(--acre-button-color, --accent-color);
-        border-color: var(--acre-button-color, --color-accent);
+        border-radius: 1px;
       }
       
-      button:hover{
+      button:hover {
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
       }
-      
     </style>
 
-    <div class="container vertical layout">
-      <iron-image class="flex" style="min-height:300px; background-color: white;" sizing="contain" preload src="[[product.image]]"></iron-image>
+    <div class="container">
+      <iron-image class="flex" style="min-height:300px;width:100%; background-color: white;" sizing="contain" preload src="[[product.image]]"></iron-image>
       <div>
         <p class="name">[[product.name]]</p>
+        <div class="rating">
+          <template is="dom-repeat" items={{_rating}}>
+            <iron-icon class="star" icon="star"></iron-icon>
+          </template>
+          <template is="dom-repeat" items={{_ratingReverse}}>
+            <iron-icon class="star-gray" icon="star"></iron-icon>
+          </template>
+        </div>
         <p class="description">[[product.shortDescrition]]</p>
-        <p class="price">[[_formatedPrice]]</p>
-        <div class="horizontal center-justified layout" style="padding:10px">
-          <button on-click="_product_clicked">[[buttonLabel]]</button>
+        <template is="dom-if" if={{product.originalPrice}}>
+          <p class="original-price">De: [[_originalPrice]]</p>
+        </template>
+        <p class="price">[[_price]]</p>
+        <div class="horizontal center-justified layout">
+          <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
         </div>
       </div>
     </div>
@@ -103,15 +132,29 @@ Custom property | Description | Default
               name: '',
               image: '',
               price: '',
-              shortDescription: ''
+              shortDescription: '',
+              originalPrice: '',
+              rating:3
             };
           }
         },
         
-        _formatedPrice:{
+        _price:{
             type: String,
             computed: '_formatPrice(product.price)'
-        }        
+        },
+        _originalPrice:{
+            type: String,
+            computed: '_formatPrice(product.originalPrice)'
+        },   
+        _rating:{
+          type: Array,
+            computed: '_ratingOkArray(product.rating)'
+        } ,
+        _ratingReverse:{
+          type: Array,
+            computed: '_ratingZeroArray(product.rating)'
+        }    
       },
     
       // Element Lifecycle
@@ -145,18 +188,32 @@ Custom property | Description | Default
     
     
       /**
-      * The `add-button-click` event is fired whenever the product button is clicked
+      * The `acre-product-add-button-click` event is fired whenever the product button is clicked
       *
-      * @event add-button-click
+      * @event acre-product-add-button-click
       * @detail {{product: Product}}
       */
       _product_clicked: function () {
-        this.fire('add-button-click', { product: this.product });
+        this.fire('acre-product-add-button-click', { product: this.product });
       },
       
       _formatPrice:function(price){
         if(!price) return price;
           return "R$" + price.toFixed(2);
+      },
+      _ratingOkArray: function(rating){
+        var arr = [];
+        for(var i = 0; i< rating; i++){
+          arr.push(i);          
+        }
+        return arr;
+      },
+      _ratingZeroArray: function(rating){
+        var arr = [];
+        for(var i = 0; i< 5 - rating ; i++){
+          arr.push(i);          
+        }
+        return arr;
       }
     });
   </script>
