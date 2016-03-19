@@ -17,6 +17,7 @@ The following custom properties and mixins are available for styling:
 Custom property | Description | Default 
 ----------------|-------------|---------- 
 `--acre-button-color` | The button color | `--accent-color` 
+`--acre-shipping-color` | The shipping label color | `--accent-color` 
 
 @demo demo/index.html
 @hero hero.svg
@@ -24,117 +25,166 @@ Custom property | Description | Default
 -->
 
 <dom-module id="acre-product">
-  <template>
-    <style>
-      :host {
-        display: block;
-        box-sizing: border-box;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        padding: 10px;
-        font-size: 14px;
-      }
-      
-      .container {
-        @apply(--layout-vertical);
-        @apply(--layout-center);
-      }
-      
-      .name {
-        font-weight: bold;
-      }
-      
-      iron-icon.star {
-        --iron-icon-width: 16px;
-        --iron-icon-height: 16px;
-        color: #ffc107;
-      }
-      
-      iron-icon.star-gray {
-        --iron-icon-width: 16px;
-        --iron-icon-height: 16px;
-        color:gray;
-      }
-      
-      .price {
-        font-weight: bold;
-        font-size: 25px;
-        margin: 0;
-        color: #CC0505;
-        margin-bottom: 10px;
-      }
-      
-      .original-price {
-        text-decoration: line-through;
-        color: gray;
-        margin: 0;
-      }
-      
-      button {
-        color: #fff;
-        background-color: var(--acre-button-color, --accent-color);
-        border-color: var(--acre-button-color, --accent-color);
-        padding: 6px 12px;
-        margin: 0;
-        width: 100%;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.42857143;
-        cursor: pointer;
-        border: 1px solid transparent;
-        text-align: center;
-        border-radius: 1px;
-      }
-      
-      button:hover {
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-      }
-    </style>
+    <template>
+        <style>
+            :host {
+                display: block;
+                box-sizing: border-box;
+                font-family: 'Roboto', 'Noto', sans-serif;
+                padding: 10px;
+                font-size: 14px;
+                --accent-color: #CC0505;
+            }
+            
+            .container {
+                @apply(--layout-vertical);
+                @apply(--layout-center);
+            }
+            
+            .name {
+                font-weight: bold;
+                cursor: pointer;
+            }
+            
+            iron-icon.star {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: #ffc107;
+            }
+            
+            iron-icon.star-gray {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: gray;
+            }
+            
+            .price {
+                font-weight: bold;
+                font-size: 25px;
+                margin: 0;
+                color: #CC0505;
+                margin-bottom: 15px;
+            }
+            
+            .original-price {
+                text-decoration: line-through;
+                color: gray;
+                margin: 0;
+                font-size: small;
+                font-weight: 600;
+            }
+            
+            .obs {
+                color: gray;
+                margin: 0;
+                font-size: small;
+                margin-top: -10px;
+                font-weight: 600;
+            }
+            
+            .shipping {
+                background-color: var(--acre-shipping-color, --accent-color);
+                padding: 3px 20px;
+                color: white;
+                margin: 10px 0;
+                font-size: smaller;
+            }
+            
+            button {
+                color: #fff;
+                background-color: var(--acre-button-color, --accent-color);
+                border-color: var(--acre-button-color, --accent-color);
+                padding: 6px 12px;
+                margin: 0;
+                width: 100%;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                cursor: pointer;
+                border: 1px solid transparent;
+                text-align: center;
+                border-radius: 1px;
+            }
+            
+            button:hover {
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            }
+        </style>
 
-    <div class="container">
-      <iron-image class="flex" style="min-height:300px;width:100%; background-color: white;" sizing="contain" preload src="[[product.image]]"></iron-image>
-      <div>
-        <p class="name">[[product.name]]</p>
-        <div class="rating">
-          <template is="dom-repeat" items={{_rating}}>
-            <iron-icon class="star" icon="star"></iron-icon>
-          </template>
-          <template is="dom-repeat" items={{_ratingReverse}}>
-            <iron-icon class="star-gray" icon="star"></iron-icon>
-          </template>
-        </div>
-        <p class="description">[[product.shortDescrition]]</p>
-        <template is="dom-if" if={{product.originalPrice}}>
-          <p class="original-price">De: [[_originalPrice]]</p>
-        </template>
-        <p class="price">[[_price]]</p>
-        <div class="horizontal center-justified layout">
-          <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
-        </div>
-      </div>
-    </div>
-  </template>
+        <div class="container">
+            <iron-image class="flex" style="min-height:300px;width:100%; background-color: white;" sizing="contain" preload src="[[product.image]]"></iron-image>
+            <div>
+                <p class="name" on-click="_product_clicked">[[product.name]]</p>
+                <div class="rating">
+                    <template is="dom-repeat" items={{_rating}}>
+                        <iron-icon class="star" icon="star"></iron-icon>
+                    </template>
+                    <template is="dom-repeat" items={{_ratingReverse}}>
+                        <iron-icon class="star-gray" icon="star"></iron-icon>
+                    </template>
+                </div>
+                <p class="description">[[product.shortDescrition]]</p>
+                <template is="dom-if" if={{product.originalPrice}}>
+                    <p class="original-price">De: [[_originalPrice]]</p>
+                </template>
+                <p class="price">[[_price]]</p>
+                <p class="obs">[[obs]]</p>
 
-  <script>
-    Polymer({
+                <template is="dom-if" if={{freeShipping}}>
+                    <div class="horizontal start-justified layout">
+                        <p class="shipping">Frete Grátis</p>
+                    </div>
+                </template>
+
+                <div class="horizontal center-justified layout">
+                    <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
       is: 'acre-product',
     
       properties: {
-    
+        
+        /**
+         * `button-label` The button label
+         */
         buttonLabel: {
           type: String,
           value: "Adicionar ao pedido"
         },
+        
+        /**
+         * `free-shipping` indicates that the free shipping label is visible
+         */
+        freeShipping:{
+            type: Boolean,
+            value: false
+        },
+        
+        /**
+         * `obs` some random information about the product <br/>
+         * Ex: 12x de R$ 1.74 sem Juros
+         */
+        obs: {
+            type: String,
+            value: ''
+        },
           
+        /**
+         * Describes the product
+         *
+         * `shortDesciption`, `originalPrice` and `rating` are optional
+         * 
+         * @type {{name: string, image: string, price: number, shortDesciption: string, originalPrice: number, rating: number}}
+         */
         product: {
           type: Object,
           value: function () {
             return {
-              name: '',
-              image: '',
-              price: '',
-              shortDescription: '',
-              originalPrice: '',
-              rating:3
             };
           }
         },
@@ -216,5 +266,5 @@ Custom property | Description | Default
         return arr;
       }
     });
-  </script>
+    </script>
 </dom-module>
