@@ -19,7 +19,8 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
-    "iron-image": "PolymerElements/iron-image#~1.0.4"
+    "iron-image": "PolymerElements/iron-image#~1.0.4",
+    "iron-fit-behavior": "PolymerElements/iron-fit-behavior#^1.0.6"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
