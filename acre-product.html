@@ -2,7 +2,6 @@
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../iron-fit-behavior/iron-fit-behavior.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <!--
 An element providing a visual presentation for a ecommerce product
@@ -13,7 +12,7 @@ Example:`
     
     <acre-product>
         Some other things that you like to put inside the element;
-        This will appear bellow the free-shipping message and the button
+        This will appear above the label message and the button
         <span class="span-test"> You can put anything herer</span>
     </acre-product>
 
@@ -25,8 +24,10 @@ Custom property | Description | Default
 ----------------|-------------|---------- 
 `--acre-button-color` | The button color | `--accent-color` 
 `--acre-button-text-color` | The button text color | `--secondary-text-color`
-`--acre-label-color` | The shipping label color | `--light-accent-color` 
+`--acre-label-color` | The label color | `--light-accent-color` 
 `--acre-label-text-color` | The label text color | `--secondary-text-color`
+`--acre-link-color` | The link color | `--primary-text-color`
+`--acre-price-color` | The price color | `--dark-accent-color`
 
 @demo demo/index.html
 @hero hero.svg
@@ -44,19 +45,11 @@ Custom property | Description | Default
                 padding: 10px;
                 font-size: 14px;
                 font-family: 'Roboto', 'Noto', sans-serif;
-                
                 --primary-text-color: #212121;
-                --primary-background-color: #ffffff;
                 --secondary-text-color: #ffffff;
-                --disabled-text-color: #9b9b9b;
-                --divider-color: #dbdbdb;
-                --primary-color: #3f51b5;
-                --light-primary-color: #c5cae9;
-                --dark-primary-color: #303f9f;
                 --accent-color: #ff4081;
                 --light-accent-color: #ff80ab;
                 --dark-accent-color: #f50057;
-
             }
             
             .container {
@@ -64,9 +57,25 @@ Custom property | Description | Default
                 @apply(--layout-center);
             }
             
+            .image {
+                min-height: 300px;
+                width: 100%;
+                background-color: white;
+            }
+            
+            .product-data {
+                padding: 10px 0;
+            }
+            
             .name {
                 font-weight: bold;
                 cursor: pointer;
+                text-decoration: none;
+                color: var(--link-color, --primary-text-color);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                min-height: 48px;
             }
             
             iron-icon.star {
@@ -85,7 +94,7 @@ Custom property | Description | Default
                 font-weight: bold;
                 font-size: 25px;
                 margin: 0;
-                color: #CC0505;
+                color: var(--acre-price-color, --dark-accent-color);
                 margin-bottom: 15px;
             }
             
@@ -106,7 +115,7 @@ Custom property | Description | Default
                 font-weight: 600;
             }
             
-            .shipping {
+            .label {
                 background-color: var(--acre-label-color, --light-accent-color);
                 color: var(--acre-label-text-color, --secondary-text-color);
                 padding: 3px 20px;
@@ -137,9 +146,9 @@ Custom property | Description | Default
         </style>
 
         <div class="container">
-            <iron-image class="flex" style="min-height:300px;width:100%; background-color: white;" sizing="contain" preload src="[[product.image]]"></iron-image>
-            <div>
-                <p class="name" on-click="_product_clicked">[[product.name]]</p>
+            <iron-image class="flex image" sizing="contain" preload src="[[product.image]]"></iron-image>
+            <div class="product-data">
+                <a class="name" on-click="_product_clicked" href="[[nameHref]]" target="[[nameTarget]]">[[product.name]]</a>
                 <div class="rating">
                     <template is="dom-repeat" items={{_rating}}>
                         <iron-icon class="star" icon="star"></iron-icon>
@@ -153,19 +162,21 @@ Custom property | Description | Default
                     <p class="original-price">De: [[_originalPrice]]</p>
                 </template>
                 <p class="price">[[_price]]</p>
-                
+
                 <p class="obs">
                     <content></content>
                 </p>
 
-                <template is="dom-if" if={{freeShipping}}>
+                <template is="dom-if" if={{label}}>
                     <div class="horizontal start-justified layout">
-                        <p class="shipping">[[freeShipping]]</p>
+                        <p class="label">[[label]]</p>
                     </div>
                 </template>
 
                 <div class="horizontal center-justified layout">
-                    <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
+                    <a style="width:100%" href="[[buttonHref]]" target="[[buttonTarget]]">
+                        <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -177,26 +188,6 @@ Custom property | Description | Default
     
       properties: {
         
-        behaviors: [
-            Polymer.IronFitBehavior
-        ],
-        
-        /**
-         * `button-label` The button label
-         */
-        buttonLabel: {
-          type: String,
-          value: "Adicionar ao pedido"
-        },
-        
-        /**
-         * `free-shipping` indicates that the free shipping label is visible and its text
-         */
-        freeShipping:{
-            type: String,
-            value: false
-        },
-          
         /**
          * Describes the product
          *
@@ -212,6 +203,57 @@ Custom property | Description | Default
           }
         },
         
+        /**
+         * The href attribute specifies the link's destination
+         */
+        nameHref:{
+            type:String,
+            value: 'javascript:;'
+        },
+
+        /**
+         * The target attribute specifies where to open the linked document:
+         * `_blank|_self|_parent|_top|framename`
+         */
+        nameTarget:{
+            type:String,
+            value: '_top'
+        },
+
+        /**
+         * The button label
+         */
+        buttonLabel: {
+          type: String,
+          value: "Adicionar ao pedido"
+        },
+        
+         /**
+         * The href attribute specifies the link's destination
+         */
+        buttonHref:{
+            type:String,
+            value: 'javascript:;'
+        },
+        
+        /**
+         * The target attribute specifies where to open the linked document:
+         * `_blank|_self|_parent|_top|framename`
+         */
+         buttonTarget:{
+            type:String,
+            value: '_top'
+        },
+        
+        /**
+         * Some label like `free shipping`
+         */
+        label:{
+            type: String,
+            value: false
+        },
+        
+           
         _price:{
             type: String,
             computed: '_formatPrice(product.price)'
@@ -259,15 +301,14 @@ Custom property | Description | Default
     
       // Element Behavior
     
-    
       /**
-      * The `acre-product-add-button-click` event is fired whenever the product button is clicked
+      * The `acre-product-button-click` event is fired whenever the product button is clicked
       *
-      * @event acre-product-add-button-click
+      * @event acre-product-button-click
       * @detail {{product: Product}}
       */
       _product_clicked: function () {
-        this.fire('acre-product-add-button-click', { product: this.product });
+        this.fire('acre-product-button-click', { product: this.product });
       },
       
       _formatPrice:function(price){

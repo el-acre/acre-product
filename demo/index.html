@@ -48,35 +48,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <p>An example of <code>&lt;acre-product&gt;</code>:</p>
 
-  <acre-product class="p1" style="width:300px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
-                          "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
-                          "rating": 3,
-                          "originalPrice": 30.00,
-                          "price": 24.90}' free-shipping="Frete Grátis (RJ/SP)" button-label="Adicionar ao Carrinho">
-                          
-                          Isso é um teste, eu posso colocar qualquer coisa aqui <br/>
-                          Mais coisas 
-                          <span class="span-test"> isso é um span</span>
-  </acre-product>
-
-  <acre-product class="p2" style="width:200px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
-                          "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
-                          "rating": 2,
-                          "price": 24.90}' button-label="Ver detalhes">
-                         
-
+    <acre-product class="p1" style="width:200px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                        "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
+                        "price": 24.90}'>
     </acre-product>
+
+
     
-    <acre-product class="p3" style="width:250px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+    <acre-product class="p2" style="width:250px" product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
                           "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
                           "shortDescrition": "Cacau orgânico, açúcar orgânico, manteiga de cacau orgânico e leite. NÃO CONTÉM GLÚTEN",
-                          "price": 24.90}' free-shipping obs="10% de desconto no boleto">
-            12x de R$ 1.74 sem Juros
+                          "rating": 4,
+                          "price": 24.90}'>
     </acre-product>
 
+  <acre-product class="p3" 
+                style="width:300px" 
+                product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                        "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg", 
+                        "rating": 3,
+                        "originalPrice": 30.00,
+                        "price": 24.90}' 
+                label="Frete Grátis (RJ/SP)"
+                button-href="https://www.google.com"
+                button-label="Ver detalhes"
+                name-href="https://www.bing.com">
+                
+    Isso é um teste, eu posso colocar qualquer coisa aqui <br/>
+    Mais coisas 
+    <span class="span-test"> isso é um span por exemplo</span>
+  </acre-product>
 
     <script>
-      document.querySelector('acre-product').addEventListener("add-button-click", function (e) {
+      document.querySelector('acre-product').addEventListener("acre-product-button-click", function (e) {
       console.log(e.detail.product);
     });
     </script>
