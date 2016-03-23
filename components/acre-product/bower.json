@@ -1,0 +1,28 @@
+{
+  "name": "acre-product",
+  "version": "1.0.6",
+  "authors": [
+    "Anonymous <victorhm@outlook.com>"
+  ],
+  "description": "An element to represent a product item.",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "seed"
+  ],
+  "main": "acre-product.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/victorhugom/acre-product/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "iron-image": "PolymerElements/iron-image#~1.0.4"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^3.4.0"
+  }
+}

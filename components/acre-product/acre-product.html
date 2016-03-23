@@ -1,0 +1,334 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<!--
+An element providing a visual presentation for a ecommerce product
+
+Example:`
+
+    <acre-product></acre-product>
+    
+    <acre-product>
+        Some other things that you like to put inside the element;
+        This will appear above the label message and the button
+        <span class="span-test"> You can put anything herer</span>
+    </acre-product>
+
+### Styling
+
+The following custom properties and mixins are available for styling: 
+  
+Custom property | Description | Default 
+----------------|-------------|---------- 
+`--acre-button-color` | The button color | `--accent-color` 
+`--acre-button-text-color` | The button text color | `--secondary-text-color`
+`--acre-label-color` | The label color | `--light-accent-color` 
+`--acre-label-text-color` | The label text color | `--secondary-text-color`
+`--acre-link-color` | The link color | `--primary-text-color`
+`--acre-price-color` | The price color | `--dark-accent-color`
+
+@demo demo/index.html
+@hero hero.svg
+
+-->
+
+<dom-module id="acre-product">
+
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <template>
+        <style>
+            :host {
+                display: block;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 14px;
+                font-family: 'Roboto', 'Noto', sans-serif;
+                --primary-text-color: #212121;
+                --secondary-text-color: #ffffff;
+                --accent-color: #ff4081;
+                --light-accent-color: #ff80ab;
+                --dark-accent-color: #f50057;
+            }
+            
+            .container {
+                @apply(--layout-vertical);
+                @apply(--layout-center);
+            }
+            
+            .image {
+                min-height: 300px;
+                width: 100%;
+                background-color: white;
+            }
+            
+            .product-data {
+                padding: 10px 0;
+            }
+            
+            .name {
+                font-weight: bold;
+                cursor: pointer;
+                text-decoration: none;
+                color: var(--link-color, --primary-text-color);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                min-height: 48px;
+            }
+            
+            iron-icon.star {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: #ffc107;
+            }
+            
+            iron-icon.star-gray {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: gray;
+            }
+            
+            .price {
+                font-weight: bold;
+                font-size: 25px;
+                margin: 0;
+                color: var(--acre-price-color, --dark-accent-color);
+                margin-bottom: 15px;
+            }
+            
+            .original-price {
+                text-decoration: line-through;
+                color: gray;
+                margin: 0;
+                font-size: small;
+                font-weight: 600;
+            }
+            
+            .obs {
+                color: gray;
+                margin: 0;
+                font-size: small;
+                margin-top: -10px;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+            
+            .label {
+                background-color: var(--acre-label-color, --light-accent-color);
+                color: var(--acre-label-text-color, --secondary-text-color);
+                padding: 3px 20px;
+                color: white;
+                margin: 10px 0;
+                font-size: smaller;
+            }
+            
+            button {
+                color: var(--acre-button-text-color, --secondary-text-color);
+                background-color: var(--acre-button-color, --accent-color);
+                border-color: var(--acre-button-color, --accent-color);
+                padding: 6px 12px;
+                margin: 0;
+                width: 100%;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                cursor: pointer;
+                border: 1px solid transparent;
+                text-align: center;
+                border-radius: 1px;
+            }
+            
+            button:hover {
+                box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+
+        <div class="container">
+            <iron-image class="flex image" sizing="contain" preload src="[[product.image]]"></iron-image>
+            <div class="product-data">
+                <a class="name" on-click="_product_clicked" href="[[nameHref]]" target="[[nameTarget]]">[[product.name]]</a>
+                <div class="rating">
+                    <template is="dom-repeat" items={{_rating}}>
+                        <iron-icon class="star" icon="star"></iron-icon>
+                    </template>
+                    <template is="dom-repeat" items={{_ratingReverse}}>
+                        <iron-icon class="star-gray" icon="star"></iron-icon>
+                    </template>
+                </div>
+                <p class="description">[[product.shortDescrition]]</p>
+                <template is="dom-if" if={{product.originalPrice}}>
+                    <p class="original-price">De: [[_originalPrice]]</p>
+                </template>
+                <p class="price">[[_price]]</p>
+
+                <p class="obs">
+                    <content></content>
+                </p>
+
+                <template is="dom-if" if={{label}}>
+                    <div class="horizontal start-justified layout">
+                        <p class="label">[[label]]</p>
+                    </div>
+                </template>
+
+                <div class="horizontal center-justified layout">
+                    <a style="width:100%" href="[[buttonHref]]" target="[[buttonTarget]]">
+                        <button class="button" on-click="_product_clicked">[[buttonLabel]]</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+      is: 'acre-product',
+    
+      properties: {
+        
+        /**
+         * Describes the product
+         *
+         * `shortDesciption`, `originalPrice` and `rating` are optional
+         * 
+         * @type {{name: string, image: string, price: number, shortDesciption: string, originalPrice: number, rating: number}}
+         */
+        product: {
+          type: Object,
+          value: function () {
+            return {
+            };
+          }
+        },
+        
+        /**
+         * The href attribute specifies the link's destination
+         */
+        nameHref:{
+            type:String,
+            value: 'javascript:;'
+        },
+
+        /**
+         * The target attribute specifies where to open the linked document:
+         * `_blank|_self|_parent|_top|framename`
+         */
+        nameTarget:{
+            type:String,
+            value: '_top'
+        },
+
+        /**
+         * The button label
+         */
+        buttonLabel: {
+          type: String,
+          value: "Adicionar ao pedido"
+        },
+        
+         /**
+         * The href attribute specifies the link's destination
+         */
+        buttonHref:{
+            type:String,
+            value: 'javascript:;'
+        },
+        
+        /**
+         * The target attribute specifies where to open the linked document:
+         * `_blank|_self|_parent|_top|framename`
+         */
+         buttonTarget:{
+            type:String,
+            value: '_top'
+        },
+        
+        /**
+         * Some label like `free shipping`
+         */
+        label:{
+            type: String,
+            value: false
+        },
+        
+           
+        _price:{
+            type: String,
+            computed: '_formatPrice(product.price)'
+        },
+        _originalPrice:{
+            type: String,
+            computed: '_formatPrice(product.originalPrice)'
+        },   
+        _rating:{
+          type: Array,
+            computed: '_ratingOkArray(product.rating)'
+        } ,
+        _ratingReverse:{
+          type: Array,
+            computed: '_ratingZeroArray(product.rating)'
+        }    
+      },
+    
+      // Element Lifecycle
+    
+      ready: function () {
+        // `ready` is called after all elements have been configured, but
+        // propagates bottom-up. This element's children are ready, but parents
+        // are not.
+        //
+        // This is the point where you should make modifications to the DOM (when
+        // necessary), or kick off any processes the element wants to perform.
+      },
+    
+      attached: function () {
+        // `attached` fires once the element and its parents have been inserted
+        // into a document.
+        //
+        // This is a good place to perform any work related to your element's
+        // visual state or active behavior (measuring sizes, beginning animations,
+        // loading resources, etc).
+      },
+    
+      detached: function () {
+        // The analog to `attached`, `detached` fires when the element has been
+        // removed from a document.
+        //
+        // Use this to clean up anything you did in `attached`.
+      },
+    
+      // Element Behavior
+    
+      /**
+      * The `acre-product-button-click` event is fired whenever the product button is clicked
+      *
+      * @event acre-product-button-click
+      * @detail {{product: Product}}
+      */
+      _product_clicked: function () {
+        this.fire('acre-product-button-click', { product: this.product });
+      },
+      
+      _formatPrice:function(price){
+        if(!price) return price;
+          return "R$" + price.toFixed(2);
+      },
+      _ratingOkArray: function(rating){
+        var arr = [];
+        for(var i = 0; i< rating; i++){
+          arr.push(i);          
+        }
+        return arr;
+      },
+      _ratingZeroArray: function(rating){
+        var arr = [];
+        for(var i = 0; i< 5 - rating ; i++){
+          arr.push(i);          
+        }
+        return arr;
+      }
+    });
+    </script>
+</dom-module>
