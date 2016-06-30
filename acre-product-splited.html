@@ -17,13 +17,13 @@ An element providing a visual presentation for a ecommerce product
 
 Example:`
 
-    <acre-product></acre-product>
+    <acre-product-splied></acre-product-splited>
 
-    <acre-product>
+    <acre-product-splited>
         Some other things that you like to put inside the element;
         This will appear above the label message and the button
         <span class="span-test"> You can put anything herer</span>
-    </acre-product>
+    </acre-product-splited>
 
 ### Styling
 
@@ -57,9 +57,10 @@ Custom property | Description | Default
 @demo demo/index.html
 @hero hero.svg
 
+
 -->
 
-<dom-module id="acre-product">
+<dom-module id="acre-product-splited">
 
   <style is="custom-style"
       include="iron-flex iron-flex-alignment acre-product-styles"></style>
@@ -70,92 +71,114 @@ Custom property | Description | Default
         box-sizing: border-box;
         font-size: 14px;
       }
+
+      .container {
+        @apply(--layout-horizontal);
+        height: 100%;
+      }
+
+      .container-end {
+        @apply(--layout-horizontal);
+        @apply(--layout-end);
+        @apply(--layout-flex);
+      }
+
+      .container-center {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-flex);
+      }
+
+      .image {
+        height: 100%;
+      }
+
+      .product-data {
+        padding: 20px;
+        width: 130px;
+      }
     </style>
 
-    <a href="[[imageHref]]"
-        target="[[imageTarget]]">
-      <acre-image class="image"
-          sizing="[[imageSizing]]"
-          src="[[product.image]]"
-          src-secondary="[[product.secondaryImage]]">
-      </acre-image>
-    </a>
-    <div class="product-data layout vertical">
-      <a class="category"
-          on-click="_product_clicked"
-          href="[[categoryHref]]"
-          target="[[categoryTarget]]">[[product.category]]</a>
-      <a class="name"
-          on-click="_product_clicked"
-          href="[[nameHref]]"
-          target="[[nameTarget]]">[[product.name]]</a>
-      <div class="rating">
-        <template is="dom-repeat"
-            items={{_rating}}>
-          <iron-icon class="star"
-              icon="star"></iron-icon>
+    <div class="container">
+
+      <div class="product-data layout vertical">
+
+        <template is="dom-if"
+            if={{label}}>
+          <div class="horizontal start-justified layout">
+            <p class="label">[[label]]</p>
+          </div>
         </template>
-        <template is="dom-repeat"
-            items={{_ratingReverse}}>
-          <iron-icon class="star-gray"
-              icon="star"></iron-icon>
-        </template>
+
+        <div class="container-end">
+          <div class="layout vertical">
+            <a class="category"
+                on-click="_product_clicked"
+                href="[[categoryHref]]"
+                target="[[categoryTarget]]">[[product.category]]</a>
+            <a class="name"
+                on-click="_product_clicked"
+                href="[[nameHref]]"
+                target="[[nameTarget]]">[[product.name]]</a>
+
+            <div class="rating">
+              <template is="dom-repeat"
+                  items={{_rating}}>
+                <iron-icon class="star"
+                    icon="star"></iron-icon>
+              </template>
+              <template is="dom-repeat"
+                  items={{_ratingReverse}}>
+                <iron-icon class="star-gray"
+                    icon="star"></iron-icon>
+              </template>
+            </div>
+
+            <template is="dom-if"
+                if={{product.shortDescrition}}>
+              <p class="description">[[product.shortDescrition]]</p>
+            </template>
+
+            <template is="dom-if"
+                if={{product.instalments}}>
+              <p class="instalments">[[product.instalments]]x de</p>
+              <p class="instalment-value">[[_formatPrice(product.instalmentValue)]]</p>
+            </template>
+
+            <template is="dom-if"
+                if={{product.originalPrice}}>
+              <p class="original-price">De: [[_formatPrice(product.originalPrice)]]</p>
+            </template>
+
+            <p class$="price {{_priceClass}}">
+              <template is="dom-if"
+                  if={{product.instalments}}><span>ou</span></template>
+              [[_formatPrice(product.price)]]
+              <template is="dom-if"
+                  if={{product.instalments}}><span>à vista</span></template>
+            </p>
+
+            <p class="obs">
+              <content></content>
+            </p>
+          </div>
+        </div>
       </div>
 
-      <template is="dom-if"
-          if={{product.shortDescrition}}>
-        <p class="description">[[product.shortDescrition]]</p>
-      </template>
-
-      <template is="dom-if"
-          if={{product.instalments}}>
-        <p class="instalments">[[product.instalments]]x de</p>
-        <p class="instalment-value">[[_formatPrice(product.instalmentValue)]]</p>
-      </template>
-
-      <template is="dom-if"
-          if={{product.originalPrice}}>
-        <p class="original-price">De: [[_formatPrice(product.originalPrice)]]</p>
-      </template>
-
-      <p class$="price {{_priceClass}}">
-        <template is="dom-if"
-            if={{product.instalments}}><span>ou</span></template>
-        [[_formatPrice(product.price)]]
-        <template is="dom-if"
-            if={{product.instalments}}><span>à vista</span></template>
-      </p>
-
-
-      <p class="obs">
-        <content></content>
-      </p>
-
-      <template is="dom-if"
-          if={{label}}>
-        <div class="horizontal start-justified layout">
-          <p class="label">[[label]]</p>
-        </div>
-      </template>
-
-      <template is="dom-if"
-          if=[[!hideButton]]>
-        <div class="center-justified horizontal layout end">
-          <a style="width:100%"
-              href="[[buttonHref]]"
-              target="[[buttonTarget]]">
-            <button class="button"
-                on-click="_product_clicked">[[buttonLabel]]</button>
-          </a>
-        </div>
-      </template>
-
+      <div class="container-center">
+        <acre-image class="image"
+            sizing="[[imageSizing]]"
+            src="[[product.image]]"
+            src-secondary="[[product.secondaryImage]]">
+        </acre-image>
+      </div>
     </div>
+
   </template>
 
   <script>
     Polymer({
-      is: 'acre-product',
+      is: 'acre-product-splited',
 
       behaviors: [AcreProductBehavior],
 
@@ -186,7 +209,6 @@ Custom property | Description | Default
         // Use this to clean up anything you did in `attached`.
       },
 
-      // Element Behavior
     });
   </script>
 </dom-module>

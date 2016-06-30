@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
-    "iron-image": "PolymerElements/iron-image#~1.0.4",
+    "iron-image": "PolymerElements/iron-image#^1.2.3",
     "acre-image": "https://github.com/victorhugom/acre-image.git"
   },
   "devDependencies": {

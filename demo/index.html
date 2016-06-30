@@ -17,7 +17,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>acre-product Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import"
+        href="../../iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import"
         href="../acre-product.html">
+    <link rel="import"
+        href="../acre-product-splited.html">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌lic,400italic,500,500italic,700,700italic,900italic,900'
         rel='stylesheet'
         type='text/css'>
@@ -29,64 +33,123 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <body unresolved>
 
-    <style is="custom-style">
-      .p1 {
-        --acre-button-color: #FF4081;
-        font-family: 'Fjalla One';
-        float: left;
-      }
-
-      .p2 {
-        --acre-button-color: #5a981c;
-        float: left;
-        font-family: 'arial';
-      }
-
-      .p3 {
-        float: left;
-      }
-
+    <style is="custom-style"
+        include="iron-flex iron-flex-alignment acre-product-styles">
       .span-test {
         color: red;
         display: block;
       }
+
+      acre-product-splited,
+      acre-product {
+        font-family: sans-serif;
+        width: 350px;
+        height: 300px;
+        margin: 2px;
+        /*float: left;*/
+        background-color: white;
+        --dark-primary-color: #512DA8;
+        --default-primary-color: #673AB7;
+        --light-primary-color: #D1C4E9;
+        --text-primary-color: #FFFFFF;
+        --accent-color: #F9CF07;
+        --primary-background-color: #D1C4E9;
+        --primary-text-color: #212121;
+        --secondary-text-color: #727272;
+        --disabled-text-color: #BDBDBD;
+        --light-text-color: #FFFFFF;
+        --divider-color: #B6B6B6;
+        --acre-product-data: {
+          background-color: white;
+          padding: 10px;
+        }
+      }
+
+      .big {}
     </style>
 
-    <p>An example of <code>&lt;acre-product&gt;</code>:</p>
+    <p style="width: 100%; text-align:center;">An example of <code>&lt;acre-product-splited&gt;</code>:</p>
+    <div class="layout horizontal wrap"
+        style="max-width:1300px;margin:20px auto;">
 
-    <acre-product class="p1"
-        style="width:200px"
-        product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
-                        "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg",
-                        "secondaryImage": "http://soschocolate.com.br/Content/images/products/tradicional.jpg",
-                        "price": 24.90}'>
-    </acre-product>
+      <div class="layout horizontal wrap"
+          style="width:708px;margin-right:2px;">
+        <acre-product-splited label="-10%"
+            style="width:704px;"
+            product='{"name": "Mesa Table Top com gaveta fabril",
+                        "category": "Mesa",
+                        "instalments": "6",
+                        "instalmentValue": 31.5,
+                        "rating": 4,
+                        "image": "http://sm.metheora.com/Pictures/507f497e-d6df-4697-be2e-971d52936341.jpg",
+                        "price": 189,
+                        "originalPrice": 199
+                      }'>
+        </acre-product-splited>
 
-    <acre-product class="p2"
-        style="width:250px"
-        product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
-                          "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg",
-                          "shortDescrition": "Cacau orgânico, açúcar orgânico, manteiga de cacau orgânico e leite. NÃO CONTÉM GLÚTEN",
+        <acre-product-splited label="-10%"
+            product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                          "category": "Aço",
+                          "image": "http://www.shoppingmatriz.com.br/img/cadeirasrhodes/ipanema_president_relax%20mil.jpg",
                           "rating": 4,
                           "price": 24.90}'>
-    </acre-product>
+        </acre-product-splited>
 
-    <acre-product class="p3"
-        style="width:300px"
-        product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+
+        <acre-product-splited label="-10%"
+            product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+                          "category": "Aço",
+                          "image": "http://www.shoppingmatriz.com.br/img/cadeirasrhodes/ipanema_president_relax%20mil.jpg",
+                          "rating": 4,
+                          "price": 24.90}'>
+        </acre-product-splited>
+      </div>
+
+      <acre-product-splited style="height:600px;"
+          label="-10%"
+          image-sizing="cover"
+          product='{"name": "Roupeiro Insalubre Artmoveis",
+                        "category": "Armario",
+                        "instalments": "6",
+                        "instalmentValue": 141.5,
+                        "image": "http://sm.metheora.com/Pictures/d49432b0-47e1-492d-a77e-33dd13cd407a.jpg",
+                        "price": 849
+                      }'>
+      </acre-product-splited>
+    </div>
+
+    <!------------------------------------------------------------------------------------------>
+    <p style="float: left;width: 100%; text-align:center;">An example of <code>&lt;acre-product&gt;</code>:</p>
+
+    <div class="layout horizontal wrap"
+        style="width:100%">
+
+      <acre-product label="-10%"
+          product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+        "category": "Aço",
+                        "image": "http://www.shoppingmatriz.com.br/img/estantedeaopandin/Estante-Aco-Pandin-Reforcada(1).jpg",
+                        "secondaryImage": "http://www.shoppingmatriz.com.br/img/estantedeaopandin/Estante-Aco-Pandin-Reforcada(1).jpg",
+                        "price": 24.90}'>
+      </acre-product>
+
+      <acre-product class="p3"
+          style="width:300px"
+          product='{"name": "AMMA AO LEITE 45% CACAU (80G)",
+        "category": "Aço",
                         "image": "http://soschocolate.com.br/Content/images/products/bombom.jpg",
                         "rating": 3,
                         "originalPrice": 30.00,
                         "price": 24.90}'
-        label="Frete Grátis (RJ/SP)"
-        button-href="https://www.google.com"
-        button-label="Ver detalhes"
-        name-href="https://www.bing.com">
+          label="Frete Grátis (RJ/SP)"
+          button-href="https://www.google.com"
+          button-label="Ver detalhes"
+          name-href="https://www.bing.com">
 
-      Isso é um teste, eu posso colocar qualquer coisa aqui
-      <br/> Mais coisas
-      <span class="span-test"> isso é um span por exemplo</span>
-    </acre-product>
+        Isso é um teste, eu posso colocar qualquer coisa aqui
+        <br/> Mais coisas
+        <span class="span-test"> isso é um span por exemplo</span>
+      </acre-product>
+    </div>
 
     <script>
       document.querySelector('acre-product').addEventListener("acre-product-button-click", function(e) {
