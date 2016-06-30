@@ -10,7 +10,7 @@
     "polymer",
     "seed"
   ],
-  "main": "acre-product.html",
+  "main": ["acre-product.html","acre-product-splited.html"],
   "license": "http://polymer.github.io/LICENSE.txt",
   "homepage": "https://github.com/victorhugom/acre-product/",
   "ignore": [
