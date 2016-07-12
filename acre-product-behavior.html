@@ -131,6 +131,7 @@
 
     _formatPrice: function(price) {
       if (!price) return price;
+      price = parseFloat(price);
       return "R$" + price.toFixed(2);
     },
     _ratingOkArray: function(rating) {
