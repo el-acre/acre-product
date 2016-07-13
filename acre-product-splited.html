@@ -11,9 +11,13 @@
 <link rel="import"
     href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import"
+    href="../acre-animated-background/acre-animated-background-behavior.html">
+<link rel="import"
+    href="../acre-animated-background/acre-animated-background-styles.html">
+<link rel="import"
     href="acre-product-behavior.html">
 
-    
+
 <!--
 An element providing a visual presentation for a ecommerce product
 
@@ -65,7 +69,7 @@ Custom property | Description | Default
 <dom-module id="acre-product-splited">
 
   <style is="custom-style"
-      include="iron-flex iron-flex-alignment acre-product-styles"></style>
+      include="iron-flex iron-flex-alignment acre-product-styles acre-animated-background-styles"></style>
   <template>
     <style>
       :host {
@@ -108,17 +112,19 @@ Custom property | Description | Default
         <template is="dom-if"
             if={{label}}>
           <div class="horizontal start-justified layout">
-            <p class="label">[[label]]</p>
+            <p class="label {{_animatedBehavior(label, 'tall')}}">[[label]]</p>
           </div>
         </template>
 
         <div class="container-end">
-          <div class="layout vertical">
-            <a class="category"
+          <div class="layout vertical" style="width:100%">
+
+            <a class$="category {{_animatedBehavior(product.category, 'tall')}}"
                 on-click="_product_clicked"
                 href="[[categoryHref]]"
                 target="[[categoryTarget]]">[[product.category]]</a>
-            <a class="name"
+
+            <a class$="name {{_animatedBehavior(product.name, 'short')}}"
                 on-click="_product_clicked"
                 href="[[nameHref]]"
                 target="[[nameTarget]]">[[product.name]]</a>
@@ -155,7 +161,9 @@ Custom property | Description | Default
             <p class$="price {{_priceClass}}">
               <template is="dom-if"
                   if={{product.instalments}}><span>ou</span></template>
-              [[_formatPrice(product.price)]]
+              <span class$="{{_animatedBehavior(product.price, 'tall')}}">
+                [[_formatPrice(product.price)]]
+              </span>
               <template is="dom-if"
                   if={{product.instalments}}><span>à vista</span></template>
             </p>
@@ -182,7 +190,9 @@ Custom property | Description | Default
     Polymer({
       is: 'acre-product-splited',
 
-      behaviors: [AcreProductBehavior],
+      behaviors: [AcreProductBehavior,
+        AcreAnimatedBackgroundBehavior
+      ],
 
       // Element Lifecycle
 

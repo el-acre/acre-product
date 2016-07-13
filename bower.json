@@ -10,7 +10,10 @@
     "polymer",
     "seed"
   ],
-  "main": ["acre-product.html","acre-product-splited.html"],
+  "main": [
+    "acre-product.html",
+    "acre-product-splited.html"
+  ],
   "license": "http://polymer.github.io/LICENSE.txt",
   "homepage": "https://github.com/victorhugom/acre-product/",
   "ignore": [
@@ -20,7 +23,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
     "iron-image": "PolymerElements/iron-image#^1.2.3",
-    "acre-image": "https://github.com/victorhugom/acre-image.git"
+    "acre-image": "https://github.com/victorhugom/acre-image.git",
+    "acre-animated-background": "https://github.com/victorhugom/acre-animated-background.git"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
