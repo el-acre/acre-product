@@ -119,12 +119,12 @@ Custom property | Description | Default
         <div class="container-end">
           <div class="layout vertical" style="width:100%">
 
-            <a class$="category {{_animatedBehavior(product.category, 'tall')}}"
+            <a class$="category {{_animatedBehavior(product.category, 'short')}}"
                 on-click="_product_clicked"
                 href="[[categoryHref]]"
                 target="[[categoryTarget]]">[[product.category]]</a>
 
-            <a class$="name {{_animatedBehavior(product.name, 'short')}}"
+            <a class$="name {{_animatedBehavior(product.name, 'medium')}}"
                 on-click="_product_clicked"
                 href="[[nameHref]]"
                 target="[[nameTarget]]">[[product.name]]</a>
@@ -158,10 +158,10 @@ Custom property | Description | Default
               <p class="original-price">De: [[_formatPrice(product.originalPrice)]]</p>
             </template>
 
-            <p class$="price {{_priceClass}}">
+            <p class$="price {{_priceClass}} {{_animatedBehavior(product.price, 'tall')}}">
               <template is="dom-if"
                   if={{product.instalments}}><span>ou</span></template>
-              <span class$="{{_animatedBehavior(product.price, 'tall')}}">
+              <span>
                 [[_formatPrice(product.price)]]
               </span>
               <template is="dom-if"
