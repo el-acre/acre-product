@@ -78,7 +78,7 @@ Custom property | Description | Default
         font-size: 14px;
       }
 
-      .container {
+      .el-container {
         @apply(--layout-horizontal);
         height: 100%;
       }
@@ -95,9 +95,14 @@ Custom property | Description | Default
         @apply(--layout-flex);
       }
 
-      .image {
+      .image-container {
         height: 100%;
+        width: 100%;
       }
+        .image-container acre-image{
+          height: 100%;
+          width: 100%;
+        }
 
       .product-data {
         padding: 20px;
@@ -105,7 +110,7 @@ Custom property | Description | Default
       }
     </style>
 
-    <div class="container">
+    <div class="el-container">
 
       <div class="product-data layout vertical">
 
@@ -119,8 +124,7 @@ Custom property | Description | Default
         <div class="container-end">
           <div class="layout vertical" style="width:100%">
 
-            <a class$="category {{_animatedBehavior(product.category, 'short')}}"
-                on-click="_product_clicked"
+            <a class$="category {{_animatedBehavior(product.category, 'short')}} {{_computeCursorClass(categoryHref)}}"
                 href="[[categoryHref]]"
                 target="[[categoryTarget]]">[[product.category]]</a>
 
@@ -176,11 +180,16 @@ Custom property | Description | Default
       </div>
 
       <div class="container-center">
-        <acre-image class="image"
-            sizing="[[imageSizing]]"
-            src="[[product.image]]"
-            src-secondary="[[product.secondaryImage]]">
+        <a class$="image-container {{_computeCursorClass(imageHref)}}"
+          href="[[imageHref]]"
+          target="[[imageTarget]]"
+          on-click="_product_clicked">
+        <acre-image
+          sizing="[[imageSizing]]"
+          src="[[product.image]]"
+          src-secondary="[[product.secondaryImage]]">
         </acre-image>
+        </a>
       </div>
     </div>
 

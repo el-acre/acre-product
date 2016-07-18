@@ -80,8 +80,9 @@ Custom property | Description | Default
       }
     </style>
 
-    <a href="[[imageHref]]"
-        target="[[imageTarget]]">
+    <a href="[[imageHref]]" class$="{{_computeCursorClass(imageHref)}}"
+        target="[[imageTarget]]"
+        on-click="_product_clicked">
       <acre-image class="image"
           sizing="[[imageSizing]]"
           src="[[product.image]]"
@@ -89,8 +90,7 @@ Custom property | Description | Default
       </acre-image>
     </a>
     <div class="product-data layout vertical">
-      <a class="category"
-          on-click="_product_clicked"
+      <a class$="category {{_animatedBehavior(product.category, 'short')}} {{_computeCursorClass(categoryHref)}}"
           href="[[categoryHref]]"
           target="[[categoryTarget]]">[[product.category]]</a>
 
@@ -156,7 +156,7 @@ Custom property | Description | Default
           <a style="width:100%"
               href="[[buttonHref]]"
               target="[[buttonTarget]]">
-            <button class="button"
+            <button class="product-button"
                 on-click="_product_clicked">[[buttonLabel]]</button>
           </a>
         </div>

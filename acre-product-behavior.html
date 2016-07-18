@@ -50,6 +50,23 @@
       /**
        * The href attribute specifies the link's destination
        */
+      categoryHref: {
+        type: String,
+        value: 'javascript:;'
+      },
+
+      /**
+       * The target attribute specifies where to open the linked document:
+       * `_blank|_self|_parent|_top|framename`
+       */
+      categoryTarget: {
+        type: String,
+        value: '_top'
+      },
+
+      /**
+       * The href attribute specifies the link's destination
+       */
       nameHref: {
         type: String,
         value: 'javascript:;'
@@ -114,7 +131,7 @@
       _priceClass: {
         type: String,
         computed: '_computePriceClass(product.instalments)'
-      },
+      },      
     },
 
     /**
@@ -124,7 +141,7 @@
      * @detail {{product: Product}}
      */
     _product_clicked: function() {
-      this.fire('acre-product-button-click', {
+      this.fire('acre-product-click', {
         product: this.product
       });
     },
@@ -155,6 +172,13 @@
       } else {
         return "price";
       }
+    },
+
+    _computeCursorClass: function(value){
+      if(value === 'javascript:;' || value === '#' || !value){
+        return 'default-cursor';
+      }
+      return 'pointer-cursor';
     }
   }
 </script>
