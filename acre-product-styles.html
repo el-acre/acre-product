@@ -1,142 +1,140 @@
 <link rel="import"
-    href="../polymer/polymer.html">
-
+      href="../polymer/polymer.html">
 <dom-module id="acre-product-styles">
-  <template>
-    <style>
-      .image {
-        height: 250px;
-        width: 100%;
-        background-color: white;
-        @apply(--acre-product-image);
-      }
+    <template>
+        <style>
+            .image {
+                height: 250px;
+                width: 100%;
+                background-color: white;
+                @apply(--acre-product-image);
+            }
 
-      .pointer-cursor{
-        cursor: pointer,
-      }
+            .pointer-cursor {
+                cursor: pointer;
+            }
 
-      .default-cursor{
-        cursor: default;,
-      }
+            .default-cursor {
+                cursor: default;
+            }
 
-      .product-data {
-        padding: 10px 0;
-        @apply(--acre-product-data);
-      }
+            .product-data {
+                padding: 10px 0;
+                @apply(--acre-product-data);
+            }
 
-      .category {
-        font-weight: bold;
-        text-decoration: none;
-        color: var(--acre-product-category-color, --secondary-text-color);
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 24px;
-        text-transform: uppercase;
-        @apply(--acre-product-data-category);
-      }
+            .category {
+                font-weight: bold;
+                text-decoration: none;
+                color: var(--acre-product-category-color, --secondary-text-color);
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 24px;
+                text-transform: uppercase;
+                @apply(--acre-product-data-category);
+            }
 
-      .name {
-        font-weight: bold;
-        cursor: pointer;
-        text-decoration: none;
-        color: var(--acre-product-name-color, --primary-text-color);
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        @apply(--acre-product-data-name);
-      }
+            .name {
+                font-weight: bold;
+                cursor: pointer;
+                text-decoration: none;
+                color: var(--acre-product-name-color, --primary-text-color);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+                @apply(--acre-product-data-name);
+            }
 
-      iron-icon.star {
-        --iron-icon-width: 16px;
-        --iron-icon-height: 16px;
-        color: #ffc107;
-      }
+            iron-icon.star {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: #ffc107;
+            }
 
-      iron-icon.star-gray {
-        --iron-icon-width: 16px;
-        --iron-icon-height: 16px;
-        color: gray;
-      }
+            iron-icon.star-gray {
+                --iron-icon-width: 16px;
+                --iron-icon-height: 16px;
+                color: gray;
+            }
 
-      .instalments {
-        font-size: 12px;
-        margin: 10px 0 0 0;
-        color: var(--acre-product-instalments-color, --secondary-text-color);
-        @apply(--acre-product-data-instalments);
-      }
+            .instalments {
+                font-size: 12px;
+                margin: 10px 0 0 0;
+                color: var(--acre-product-instalments-color, --secondary-text-color);
+                @apply(--acre-product-data-instalments);
+            }
 
-      .instalment-value {
-        font-weight: bold;
-        font-size: 25px;
-        margin: 0;
-        color: var(--acre-product-instalments-value-color, --dark-primary-color);
-        @apply(--acre-product-data-instalment-value);
-      }
+            .instalment-value {
+                font-weight: bold;
+                font-size: 25px;
+                margin: 0;
+                color: var(--acre-product-instalments-value-color, --dark-primary-color);
+                @apply(--acre-product-data-instalment-value);
+            }
 
-      .price {
-        font-weight: bold;
-        font-size: 25px;
-        margin: 0;
-        color: var(--acre-product-price-color, --dark-primary-color);
-        @apply(--acre-product-data-price);
-      }
+            .price {
+                font-weight: bold;
+                font-size: 25px;
+                margin: 0;
+                color: var(--acre-product-price-color, --dark-primary-color);
+                @apply(--acre-product-data-price);
+            }
 
-      .price.price-small {
-        color: var(--acre-product-price-color, --secondary-text-color);
-        font-size: 11px;
-        @apply(--acre-product-data-price);
-      }
+                .price.price-small {
+                    color: var(--acre-product-price-color, --secondary-text-color);
+                    font-size: 11px;
+                    @apply(--acre-product-data-price);
+                }
 
-      .original-price {
-        text-decoration: line-through;
-        margin: 0;
-        font-size: small;
-        font-weight: 600;
-        color: var(--acre-product-original-price-color, --secondary-text-color);
-        @apply(--acre-product-data-original-price);
-      }
+            .original-price {
+                text-decoration: line-through;
+                margin: 0;
+                font-size: small;
+                font-weight: 600;
+                color: var(--acre-product-original-price-color, --secondary-text-color);
+                @apply(--acre-product-data-original-price);
+            }
 
-      .obs {
-        color: gray;
-        margin: 0;
-        font-size: small;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        font-weight: 600;
-        @apply(--acre-product-data-obs);
-      }
+            .obs {
+                color: gray;
+                margin: 0;
+                font-size: small;
+                margin-top: 10px;
+                margin-bottom: 5px;
+                font-weight: 600;
+                @apply(--acre-product-data-obs);
+            }
 
-      .label {
-        background-color: var(--acre-product-label-background-color, --accent-color);
-        color: var(--acre-product-label-color, --light-text-color);
-        padding: 3px 20px;
-        margin: 10px 0;
-        font-size: smaller;
-        @apply(--acre-product-data-label);
-      }
+            .label-tag {
+                background-color: var(--acre-product-label-background-color, --accent-color);
+                color: var(--acre-product-label-color, --light-text-color);
+                padding: 3px 10px;
+                margin: 10px 0;
+                font-size: 11px;
+                @apply(--acre-product-data-label);
+            }
 
-      .product-button {
-        color: var(--acre-button-text-color, --light-text-color);
-        background-color: var(--acre-button-color, --default-primary-color);
-        border-color: var(--acre-button-color, --default-primary-color);
-        padding: 6px 12px;
-        margin: 0;
-        width: 100%;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.42857143;
-        cursor: pointer;
-        border: 1px solid transparent;
-        text-align: center;
-        border-radius: 1px;
-        @apply(--acre-product-button);
-      }
+            .product-button {
+                color: var(--acre-button-text-color, --light-text-color);
+                background-color: var(--acre-button-color, --default-primary-color);
+                border-color: var(--acre-button-color, --default-primary-color);
+                padding: 6px 12px;
+                margin: 0;
+                width: 100%;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                cursor: pointer;
+                border: 1px solid transparent;
+                text-align: center;
+                border-radius: 1px;
+                @apply(--acre-product-button);
+            }
 
-      .product-button:hover {
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-        @apply(--acre-product-button-hover);
-      }
-    </style>
-
-  </template>
+                .product-button:hover {
+                    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+                    @apply(--acre-product-button-hover);
+                }
+        </style>
+    </template>
 </dom-module>
