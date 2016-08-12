@@ -169,15 +169,14 @@ Custom property | Description | Default
                 </div>
             </div>
             <div class="container-center">
-                <a class$="image-container {{_computeCursorClass(imageHref)}}"
-                   href="[[imageHref]]"
-                   target="[[imageTarget]]"
-                   on-click="_product_clicked">
-                    <acre-image sizing="[[imageSizing]]"
-                                src="[[product.image]]"
-                                src-secondary="[[product.secondaryImage]]">
-                    </acre-image>
-                </a>
+                <acre-image class="image"
+                    href="[[imageHref]]"
+                    target="[[imageTarget]]"
+                    src="[[product.image]]"
+                    src-secondary="[[product.secondaryImage]]"
+                    sizing="[[imageSizing]]"
+                    on-click="_product_image_clicked">
+                </acre-image>
             </div>
         </div>
     </template>

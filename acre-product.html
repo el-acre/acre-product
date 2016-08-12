@@ -77,15 +77,15 @@ Custom property | Description | Default
                 max-width: 200px;
             }
         </style>
-        <a href="[[imageHref]]" class$="{{_computeCursorClass(imageHref)}}"
-           target="[[imageTarget]]"
-           on-click="_product_clicked">
-            <acre-image class="image"
-                        sizing="[[imageSizing]]"
-                        src="[[product.image]]"
-                        src-secondary="[[product.secondaryImage]]">
-            </acre-image>
-        </a>
+        
+        <acre-image class="image"
+                    href="[[imageHref]]"
+                    target="[[imageTarget]]"
+                    src="[[product.image]]"
+                    src-secondary="[[product.secondaryImage]]"
+                    sizing="[[imageSizing]]"
+                    on-click="_product_image_clicked">
+        </acre-image>
         <div class="product-data layout vertical">
             <a class$="category {{_animatedBehavior(product.category, 'short')}} {{_computeCursorClass(categoryHref)}}"
                href="[[categoryHref]]"
