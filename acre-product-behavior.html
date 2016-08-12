@@ -145,11 +145,51 @@
         product: this.product
       });
     },
-
     _formatPrice: function(price) {
       if (!price) return price;
       price = parseFloat(price);
-      return "R$" + price.toFixed(2);
+      return AcreProductBehavior._floatToReais(price);
+      //return "R$" + price.toFixed(2);
+    },
+    _floatToReais: function(price){
+        var ret = "R$ ";
+        try {
+            if (price == '') price = "0";
+            var arrStr = (price * 1).toFixed(2).toString().split('.');
+            arrStr = AcreProductBehavior._fixArrayOf1(arrStr, '.');
+            var antesDaVirgula = arrStr[0];
+            var negativo = antesDaVirgula.indexOf('-') > -1;
+            if (negativo) antesDaVirgula = antesDaVirgula.replace('-', '');
+            var depoisDaVirgula = arrStr[1];
+            var qtosAntesDoPrimeiroPonto = antesDaVirgula.length % 3;
+            var antesDoPrimeiroPonto = antesDaVirgula.substring(0, qtosAntesDoPrimeiroPonto);
+            var depoisDoPrimeiroPonto = antesDaVirgula.substring(qtosAntesDoPrimeiroPonto, antesDaVirgula.length);
+            if (antesDoPrimeiroPonto.length > 0)
+                ret += antesDoPrimeiroPonto + '.';
+            depoisDoPrimeiroPonto = depoisDoPrimeiroPonto.replace(/(\S{3})/g, "$1.");
+            depoisDoPrimeiroPonto = depoisDoPrimeiroPonto.replace(/.$/, "");
+            ret += depoisDoPrimeiroPonto + "," + depoisDaVirgula;
+            ret = ret.replace('.,', ',').replace('..', '.');
+            if (negativo) ret = '-' + ret;
+        } catch (e) {
+            ret += "0,00";
+        }
+        return ret;
+    },
+    _fixArrayOf1: function(arr, char) {
+      if (arr.length == 1) {
+          if (arr[0].substring(0, 1) == char)
+              arr = ["0", arr[0]];
+          else if (arr[0].substr(arr[0].length - 1, 1) == char)
+              arr = [arr[0], "00"];
+          else
+              arr = [arr[0], "00"];
+      } else {
+          for (var i = 0; i < arr.length; i++) {
+              if (arr[i] == '') arr[i] = '0';
+          }
+      }
+      return arr;
     },
     _ratingOkArray: function(rating) {
       var arr = [];
