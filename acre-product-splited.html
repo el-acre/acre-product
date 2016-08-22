@@ -119,9 +119,10 @@ Custom property | Description | Default
                     <div class="layout vertical" style="width:100%">
                         <a class$="category {{_animatedBehavior(product.category, 'short')}} {{_computeCursorClass(categoryHref)}}"
                            href="[[categoryHref]]"
-                           target="[[categoryTarget]]">[[product.category]]</a>
+                           target="[[categoryTarget]]"
+                           on-click="_product_category_clicked">[[product.category]]</a>
                         <a class$="name {{_animatedBehavior(product.name, 'medium')}}"
-                           on-click="_product_clicked"
+                           on-click="_product_name_clicked"
                            href="[[nameHref]]"
                            target="[[nameTarget]]">[[product.name]]</a>
                         <div class="rating">

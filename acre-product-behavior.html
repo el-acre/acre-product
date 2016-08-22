@@ -131,7 +131,59 @@
       _priceClass: {
         type: String,
         computed: '_computePriceClass(product.instalments)'
-      },      
+      },
+    },
+
+    /**
+     * The `acre-product-click` event is fired whenever the product is clicked
+     *
+     * @event acre-product-click
+     * @detail {{product: Product}}
+     */
+    _product_clicked: function() {
+      this.fire('acre-product-click', {
+        product: this.product
+      });
+    },
+
+    /**
+     * The `acre-product-name-click` event is fired whenever the product name is clicked
+     *
+     * @event acre-product-name-click
+     * @detail {{product: Product}}
+     */
+    _product_name_clicked: function() {
+      this.fire('acre-product-name-click', {
+        product: this.product
+      });
+      this._product_clicked();
+    },
+
+
+    /**
+     * The `acre-product-image-click` event is fired whenever the product image is clicked
+     *
+     * @event acre-product-image-click
+     * @detail {{product: Product}}
+     */
+    _product_image_clicked: function() {
+      this.fire('acre-product-image-click', {
+        product: this.product
+      });
+      this._product_clicked();
+    },
+
+    /**
+     * The `acre-product-category-click` event is fired whenever the product category is clicked
+     *
+     * @event acre-product-category-click
+     * @detail {{product: Product}}
+     */
+    _product_category_clicked: function() {
+      this.fire('acre-product-category-click', {
+        product: this.product
+      });
+      this._product_clicked();
     },
 
     /**
@@ -140,11 +192,13 @@
      * @event acre-product-button-click
      * @detail {{product: Product}}
      */
-    _product_clicked: function() {
-      this.fire('acre-product-click', {
+    _product_button_clicked: function() {
+      this.fire('acre-product-button-click', {
         product: this.product
       });
+      this._product_clicked();
     },
+
     _formatPrice: function(price) {
       if (!price) return price;
       price = parseFloat(price);
