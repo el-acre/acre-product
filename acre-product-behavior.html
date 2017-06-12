@@ -247,6 +247,7 @@
     },
     _ratingOkArray: function(rating) {
       var arr = [];
+      if (!rating) return [];
       for (var i = 0; i < rating; i++) {
         arr.push(i);
       }
@@ -254,6 +255,7 @@
     },
     _ratingZeroArray: function(rating) {
       var arr = [];
+      if (!rating) return [];
       for (var i = 0; i < 5 - rating; i++) {
         arr.push(i);
       }
